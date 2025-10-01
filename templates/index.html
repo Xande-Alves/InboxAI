@@ -1,0 +1,107 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>InboxAI - CAPITAL</title>
+    <link rel="stylesheet" href="/static/style.css" />
+    <link rel="icon" href="/static/logo2.jpg">
+  </head>
+
+  <body>
+    <header id="topo">
+      <div class="divHeader">
+        <img
+          src="../static/logo2.jpg"
+          alt="Logo da empresa Capital."
+          class="logo"
+        />
+        <div class="divCapital">
+          <h1 class="headerH1">Capital</h1>
+          <h2 class="headerH2">Estruturações Financeiras</h2>
+        </div>
+      </div>
+    </header>
+    <main>
+      <h1 class="containerH1">InboxAI – Sua caixa de entrada inteligente</h1>
+
+      <form action="/process" method="post" enctype="multipart/form-data">
+        <label for="email_text"
+          >Cole aqui o texto do email ou carregue um arquivo no formato .txt ou
+          .pdf</label
+        >
+        <textarea
+          name="email_text"
+          id="email_text"
+          rows="8"
+          placeholder="Cole o texto do email..."
+        ></textarea>
+
+        <div class="file-row">
+          <input type="file" name="file" accept=".txt,.pdf" />
+        </div>
+
+        <div class="actions">
+          <button type="submit">Processamento Inteligente</button>
+        </div>
+      </form>
+
+      {% if error %}
+      <div class="error">{{ error }}</div>
+      {% endif %} {% if result %}
+      <div class="result">
+        <h2 class="resultH2">Resultados</h2>
+
+        <div
+          class="content {{ 'produtivo' if category|lower == 'produtivo' else 'improdutivo' }}"
+        >
+          <div class="divCategoria">
+            <h3>Categoria:</h3>
+            <span
+              class="category-label {{ 'produtivo-label' if category|lower == 'produtivo' else 'improdutivo-label' }}"
+            >
+              {{ category }}
+            </span>
+          </div>
+
+          <h3>Resposta sugerida</h3>
+          <div class="suggestion">{{ suggestion }}</div>
+
+          <h3>Texto original</h3>
+          <div class="orig">{{ original }}</div>
+        </div>
+      </div>
+      {% endif %}
+    </main>
+    <footer>
+      <div class="divFooter">
+        <img
+          src="../static/logo2.jpg"
+          alt="Logo da empresa Capital."
+          class="imgFooter"
+        />
+        <p>© 2025 CAPITAL. Todos os direitos reservados.</p>
+      </div>
+    </footer>
+    <script>
+      window.addEventListener("DOMContentLoaded", function () {
+        // scroll automático nos resultados (já existente)
+        const resultSection = document.querySelector(".result");
+        if (resultSection) {
+          resultSection.scrollIntoView({ behavior: "smooth" });
+        }
+
+        // clique no logo do footer para voltar ao topo
+        const footerLogo = document.querySelector(".imgFooter");
+        if (footerLogo) {
+          footerLogo.addEventListener("click", function () {
+            document
+              .getElementById("topo")
+              .scrollIntoView({ behavior: "smooth" });
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

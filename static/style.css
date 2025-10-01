@@ -1,0 +1,247 @@
+/* static/style.css */
+@import url('https://fonts.googleapis.com/css2?family=Pinyon+Script&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Tinos:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; 
+}
+
+body {
+  font-family: Inter, Arial, sans-serif;
+  background-color: rgb(182, 210, 243);
+  color: rgb(09, 29, 53); 
+}
+
+header {
+  background-color: rgb(09, 29, 53);
+  height: 155px;
+  display: flex;
+  align-items: center;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.418);
+}
+
+.divHeader {
+  display: flex;
+  width: 65%;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+}
+
+.logo {
+  width: 100px;
+  height: 80px;
+  margin-left: 10px;
+}
+
+.divCapital {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.headerH1 {
+  font-size: 6em;
+  color: rgb(195, 145, 82);
+  font-family: "Cinzel", serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  text-shadow: 1px 1px 2px rgba(195, 145, 82, 0.418);
+  height: 100px;
+}
+
+.headerH2 {
+  font-size: 1.5em;
+  color: rgb(244, 239, 175);
+  font-family: "Tinos", serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+main {
+  max-width: 900px;
+  margin: 28px auto;
+  padding: 22px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(20, 30, 60, 0.08);
+}
+.containerH1 {
+  font-size: 20px;
+  margin-bottom: 12px;
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 2em;
+}
+
+label {
+  font-weight: bold;
+}
+
+textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #dfe6f0;
+  resize: vertical;
+}
+
+input[type="file"] {
+  border-radius: 5px;
+  padding: 5px;
+  background-color: #f0f0f0;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+input[type="file"]::file-selector-button {
+  background-color: rgb(182, 210, 243);
+  color: rgb(09, 29, 53);
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+input[type="file"]::file-selector-button:hover {
+  background-color: rgb(91, 163, 245);
+}
+
+.actions {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+button {
+  background-color: #2563eb;
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  height: 50px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0d3ca0;
+}
+
+.result {
+  margin-top: 20px;
+  padding: 12px;
+  background: #fbfdff;
+  border-radius: 8px;
+}
+
+/* Área geral */
+.content.produtivo {
+  background-color: rgb(182, 210, 243); /* azul claro */
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.content.improdutivo {
+  background-color: #ffe0e0; /* vermelho claro */
+  padding: 15px;
+  border-radius: 8px;
+}
+
+/* Label da categoria */
+.category-label.produtivo-label {
+  color: #0056b3; /* azul mais forte */
+  font-weight: bold;
+}
+
+.category-label.improdutivo-label {
+  color: #b30000; /* vermelho mais forte */
+  font-weight: bold;
+}
+
+.divCategoria {
+  display: flex;
+  align-items: center;
+}
+
+span {
+  margin-top: 15px;
+  font-size: 1.5em;
+  margin-right: 5px;
+}
+
+p {
+  margin-top: 15px;
+}
+
+h3 {
+  width: auto;
+  margin-right: 10px;
+  margin-top: 15px;
+}
+
+.resultH2 {
+  text-align: center;
+}
+
+.suggestion {
+  white-space: pre-wrap;
+  padding: 10px;
+  border-left: 3px solid #dbeafe;
+  background: #fff;
+}
+.orig {
+  background: #f3f4f6;
+  padding: 10px;
+  border-radius: 6px;
+}
+.file-row {
+  margin-top: 8px;
+}
+.error {
+  color: #8b0000;
+  margin-top: 8px;
+}
+footer {
+  background-color: rgb(09, 29, 53);
+  height: 80px;
+  display: flex;
+  align-items: center;
+}
+
+.divFooter {
+  width: 62%;
+  color: rgb(244, 239, 175);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.imgFooter {
+  width: 80px;
+  cursor: pointer;
+}
+
+/* RESPONSIVIDADE */
+@media (max-width: 500px) {
+  .divHeader {
+    width: 100%;
+  }
+
+  .logo {
+    margin-left: 2px;
+  }
+
+  .divFooter {
+    width: 100%;
+    justify-content: space-around;
+  }
+}

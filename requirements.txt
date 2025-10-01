@@ -1,0 +1,7 @@
+flask
+scikit-learn
+nltk
+PyPDF2
+openai
+werkzeug
+python-dotenv
