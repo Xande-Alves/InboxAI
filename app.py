@@ -4,6 +4,7 @@ from flask import Flask, request, render_template, redirect, url_for
 from werkzeug.utils import secure_filename
 import io
 import random
+import time
 
 # OpenAI
 from openai import OpenAI
@@ -89,7 +90,7 @@ X = VECT.fit_transform(texts)
 CLF = LogisticRegression()
 CLF.fit(X, labels)
 
-# Helpers
+
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
@@ -104,12 +105,14 @@ def read_pdf(file_stream):
     except Exception:
         return ''
 
+
 def classify_text(text: str) -> (str, float):
     cleaned = clean_text(text)
     x = VECT.transform([cleaned])
     prob = CLF.predict_proba(x)[0][1]
     label = 'Produtivo' if prob >= 0.5 else 'Improdutivo'
     return label, float(prob)
+
 
 def fallback_response(category: str) -> str:
     if category == 'Produtivo':
@@ -119,15 +122,44 @@ def fallback_response(category: str) -> str:
         return ('Olá! Agradecemos sua mensagem. Não é necessária nenhuma ação adicional no momento. '
                 'Se precisar de algo específico, por favor nos informe.')
 
+
 @app.route('/', methods=['GET'])
 def index():
     return render_template('index.html')
+
+
+def save_training_example(text: str, category: str, filename: str = None):
+    """
+    Salva o texto classificado dentro de uploads/Produtivo ou uploads/Improdutivo.
+    Sempre gera nome único com timestamp, tanto para arquivos enviados
+    quanto para textos colados.
+    """
+    folder = os.path.join(app.config['UPLOAD_FOLDER'], category)
+    os.makedirs(folder, exist_ok=True)
+
+    timestamp = time.strftime("%Y%m%d_%H%M%S")
+
+    if filename:  
+        # mantém extensão se existir
+        name, ext = os.path.splitext(filename)
+        filename = f"{name}_{timestamp}{ext if ext else '.txt'}"
+    else:
+        filename = f"input_{timestamp}.txt"
+
+    filepath = os.path.join(folder, filename)
+
+    with open(filepath, "w", encoding="utf-8") as f:
+        f.write(text)
+
+
 
 @app.route('/process', methods=['POST'])
 def process():
     text = request.form.get('email_text', '').strip()
     file = request.files.get('file')
+    filename = None
 
+    # Se for upload de arquivo
     if not text and file and file.filename != '':
         filename = secure_filename(file.filename)
         if allowed_file(filename):
@@ -137,26 +169,24 @@ def process():
             elif ext == 'pdf':
                 file.stream.seek(0)
                 text = read_pdf(file)
-            
-            #SALVA OS ARQUIVOS EM UPLOADS
-            filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-            file.save(filepath)
         else:
             return redirect(url_for('index'))
 
     if not text:
         return render_template('index.html', error='Nenhum texto fornecido.')
 
-    # Tenta com OpenAI, senão cai no local
+    # Classificação
     try:
         category = classify_with_openai(text)
-        prob = None  # com OpenAI não vem probabilidade
+        prob = None
     except Exception as e:
         print("Erro com OpenAI, caindo no modelo local:", e)
         category, prob = classify_text(text)
 
     suggested = generate_response_local(category, text)
 
+    # Salva no diretório correto, sem duplicar
+    save_training_example(text, category, filename)
 
     return render_template(
         'index.html',
