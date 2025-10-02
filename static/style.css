@@ -1,5 +1,4 @@
 /* static/style.css */
-@import url('https://fonts.googleapis.com/css2?family=Pinyon+Script&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Tinos:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap');
 
@@ -13,6 +12,7 @@ body {
   font-family: Inter, Arial, sans-serif;
   background-color: rgb(182, 210, 243);
   color: rgb(09, 29, 53); 
+  height: auto;
 }
 
 header {
@@ -234,14 +234,35 @@ footer {
 @media (max-width: 500px) {
   .divHeader {
     width: 100%;
+    justify-content: center;
   }
 
   .logo {
+    width: 80px;
+    height: 64px;
     margin-left: 2px;
+  }
+
+  .headerH1 {
+    font-size: 4em;
+    height: 70px;
+  }
+
+  .headerH2 {
+    font-size: 1em;
   }
 
   .divFooter {
     width: 100%;
     justify-content: space-around;
+  }
+
+  .imgFooter {
+    width: 60px;
+  }
+
+  .pFooter {
+    font-size: 0.9em;
+    margin-bottom: 13px;
   }
 }
