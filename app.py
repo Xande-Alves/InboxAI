@@ -2,7 +2,7 @@ import os
 from dados_treinamento.dados_de_treino import EXAMPLES
 from flask import Flask, request, render_template, redirect, url_for
 from werkzeug.utils import secure_filename
-import random
+from typing import Tuple
 import time
 
 # OpenAI
@@ -100,12 +100,13 @@ def read_pdf(file_stream):
         return ''
 
 # Classifica usando o modelo local se a OPENAI não responder
-def classify_text(text: str) -> (str, float):
+def classify_text(text: str) -> Tuple[str, float]:
     cleaned = clean_text(text)
     x = VECT.transform([cleaned])
     prob = CLF.predict_proba(x)[0][1]
     label = 'Produtivo' if prob >= 0.5 else 'Improdutivo'
     return label, float(prob)
+
 
 # Retorna mensagens para cada categoria se a OPENAI não responder
 def fallback_response(category: str) -> str:

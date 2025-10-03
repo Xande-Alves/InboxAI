@@ -25,7 +25,7 @@ header {
 
 .divHeader {
   display: flex;
-  width: 65%;
+  width: 62%;
   justify-content: space-between;
   align-items: center;
   height: 100%;
@@ -218,7 +218,7 @@ footer {
 }
 
 .divFooter {
-  width: 62%;
+  width: 61%;
   color: rgb(244, 239, 175);
   display: flex;
   justify-content: space-between;
@@ -231,6 +231,38 @@ footer {
 }
 
 /* RESPONSIVIDADE */
+@media (max-width: 780px) {
+  .divHeader {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .logo {
+    margin-left: 2px;
+    margin-right: 10px;
+  }
+
+  .headerH1 {
+    margin-left: 10px;
+  }
+
+  .divFooter {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .imgFooter {
+    width: 60px;
+    margin-right: 15px;
+  }
+
+  .pFooter {
+    font-size: 0.9em;
+    margin-bottom: 13px;
+    margin-left: 15px;
+  }
+}
+
 @media (max-width: 500px) {
   .divHeader {
     width: 100%;
