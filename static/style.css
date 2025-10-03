@@ -231,7 +231,7 @@ footer {
 }
 
 /* RESPONSIVIDADE */
-@media (max-width: 780px) {
+@media (max-width: 800px) {
   .divHeader {
     width: 100%;
     justify-content: center;
